@@ -1,5 +1,5 @@
-#define trigPin 35
-#define echoPin 34
+#define trigPin 34
+#define echoPin 35
 #define ledPin 32
 
 long distance;
@@ -15,7 +15,7 @@ void setup() {
   
 void loop() { // every 10 µs
   distance=readUltrasonicSensor(); 
-  if (distance >= 400 || distance <= 0){ 
+  if (distance >= 4 || distance <= 0){ 
     Serial.println("Unknown value"); } 
   else { 
     digitalWrite(ledPin, HIGH);   
@@ -26,10 +26,12 @@ void loop() { // every 10 µs
   } 
 
 long readUltrasonicSensor(){ 
-  digitalWrite(trigPin, HIGH); 
-  delayMicroseconds(10); 
+  digitalWrite(trigPin, LOW); 
+  delayMicroseconds(2); 
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10) ;
   digitalWrite(trigPin, LOW); 
   duration = pulseIn(echoPin, HIGH); 
   Serial.println(duration); //Convert and return value 
-  return duration/ 58; 
+  return duration*0.034/2; 
 }
