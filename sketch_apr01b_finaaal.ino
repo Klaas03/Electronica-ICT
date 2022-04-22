@@ -136,12 +136,3 @@ void loop()
   Serial.println(digitalRead(InfraredSensorPin4), BIN);
   delay(50);
 }
-    timer4 = 50;
-  }
-  Serial.print("Infrared Switch Status:");
-  Serial.print(digitalRead(InfraredSensorPin1), BIN);
-  Serial.print(digitalRead(InfraredSensorPin2), BIN);
-  Serial.print(digitalRead(InfraredSensorPin3), BIN);
-  Serial.println(digitalRead(InfraredSensorPin4), BIN);
-  delay(50);
-}
