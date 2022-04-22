@@ -129,10 +129,13 @@ void loop()
   if (digitalRead(InfraredSensorPin4) == 0){
     timer4 = 50;
   }
-  Serial.print("Infrared Switch Status:");
-  Serial.print(digitalRead(InfraredSensorPin1), BIN);
-  Serial.print(digitalRead(InfraredSensorPin2), BIN);
-  Serial.print(digitalRead(InfraredSensorPin3), BIN);
+  Serial.print("led1: ");
+  Serial.println(digitalRead(InfraredSensorPin1), BIN);
+  Serial.print("led2: ");
+  Serial.println(digitalRead(InfraredSensorPin2), BIN);
+  Serial.print("led3: ");
+  Serial.println(digitalRead(InfraredSensorPin3), BIN);
+  Serial.print("led4: ");
   Serial.println(digitalRead(InfraredSensorPin4), BIN);
   delay(50);
 }
