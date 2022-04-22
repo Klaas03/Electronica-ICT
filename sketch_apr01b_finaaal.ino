@@ -25,7 +25,10 @@ const int InfraredSensorPin1 = 34;//Connect the signal pin to the digital pin 4
 const int InfraredSensorPin2 = 35;
 const int InfraredSensorPin3 = 32;
 const int InfraredSensorPin4 = 33;
-const int LedDisp = 5;
+const int LedPin1 = 14;
+const int LedPin2 = 27;
+const int LedPin3 = 26;
+const int LedPin4 = 25;
 int timer1 = 0;
 int timer2 = 0;
 int timer3 = 0;
@@ -39,8 +42,14 @@ void setup()
   pinMode(InfraredSensorPin2, INPUT);
   pinMode(InfraredSensorPin3, INPUT);
   pinMode(InfraredSensorPin4, INPUT);
-  pinMode(LedDisp, OUTPUT);
-  digitalWrite(LedDisp, LOW);
+  pinMode(LedPin1, OUTPUT);
+  pinMode(LedPin2, OUTPUT);
+  pinMode(LedPin3, OUTPUT);
+  pinMode(LedPin4, OUTPUT);
+  digitalWrite(LedPin1, LOW);
+  digitalWrite(LedPin2, LOW);
+  digitalWrite(LedPin3, LOW);
+  digitalWrite(LedPin4, LOW);
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
@@ -74,10 +83,10 @@ void setup()
 void loop()
 {
   if (digitalRead(InfraredSensorPin1) == 0 or timer1 != 0)  {
-    digitalWrite(LedDisp, HIGH);
+    digitalWrite(LedPin1, HIGH);
     timer1 += 50;
   }
-  else  digitalWrite(LedDisp, LOW);
+  else  digitalWrite(LedPin1, LOW);
   if (timer1 == 5000) {
     timer1 = 0;
   }
@@ -86,10 +95,10 @@ void loop()
   }
 
   if (digitalRead(InfraredSensorPin2) == 0 or timer2 != 0)  {
-    digitalWrite(LedDisp, HIGH);
+    digitalWrite(LedPin2, HIGH);
     timer2 += 50;
   }
-  else  digitalWrite(LedDisp, LOW);
+  else  digitalWrite(LedPin2, LOW);
   if (timer2 == 5000) {
     timer2 = 0;
   }
@@ -98,10 +107,10 @@ void loop()
   }
 
   if (digitalRead(InfraredSensorPin3) == 0 or timer3 != 0)  {
-    digitalWrite(LedDisp, HIGH);
+    digitalWrite(LedPin3, HIGH);
     timer3 += 50;
   }
-  else  digitalWrite(LedDisp, LOW);
+  else  digitalWrite(LedPin3, LOW);
   if (timer3 == 5000) {
     timer3 = 0;
   }
@@ -110,14 +119,23 @@ void loop()
   }
 
   if (digitalRead(InfraredSensorPin4) == 0 or timer4 != 0)  {
-    digitalWrite(LedDisp, HIGH);
+    digitalWrite(LedPin4, HIGH);
     timer4 += 50;
   }
-  else  digitalWrite(LedDisp, LOW);
+  else  digitalWrite(LedPin4, LOW);
   if (timer4 == 5000) {
     timer4 = 0;
   }
   if (digitalRead(InfraredSensorPin4) == 0){
+    timer4 = 50;
+  }
+  Serial.print("Infrared Switch Status:");
+  Serial.print(digitalRead(InfraredSensorPin1), BIN);
+  Serial.print(digitalRead(InfraredSensorPin2), BIN);
+  Serial.print(digitalRead(InfraredSensorPin3), BIN);
+  Serial.println(digitalRead(InfraredSensorPin4), BIN);
+  delay(50);
+}
     timer4 = 50;
   }
   Serial.print("Infrared Switch Status:");
