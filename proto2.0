@@ -60,7 +60,7 @@ void setup()
   ledcSetup(1, freq, resolution);
   ledcSetup(2, freq, resolution);
   ledcSetup(3, freq, resolution);  
-  
+   
   //linken van de channels aan de LedPins
   ledcAttachPin(LedPin[0], 0);
   ledcAttachPin(LedPin[1], 1);
