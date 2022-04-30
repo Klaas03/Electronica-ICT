@@ -56,7 +56,7 @@ void setup()
   digitalWrite(ledCode[2], LOW);
   
   //setup leds verschillende channels (0, 1, 2, 3)
-  ledcSetup(0, freq, resolution);
+  ledcSetup(0, freq, resolution); 
   ledcSetup(1, freq, resolution);
   ledcSetup(2, freq, resolution);
   ledcSetup(3, freq, resolution);  
