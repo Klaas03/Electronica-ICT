@@ -9,6 +9,11 @@
 #include "addons/TokenHelper.h"
 #include "addons/RTDBHelper.h"
 
+#include <Adafruit_Neopixel.h>
+#ifdef __AVR__
+  #include <avr/power.h>
+#endif
+
 #define WIFI_SSID "IoTdevices"
 #define WIFI_PASSWORD "dFscvc=Itrs"
 
@@ -20,22 +25,29 @@ FirebaseData fbdo;
 FirebaseAuth auth;
 FirebaseConfig config;
 
-const int buttonPin;
-int ledCode[] = {}; 
-const int InfraredSensorPin[] = {34, 35, 32, 33};
-const int LedPin[] = {14, 26, 27, 25}; 
+const int buttonPin = 16;
+int value;
+int ledCode[] = {18,17}; 
+const int InfraredSensorPin[] = {12, 35, 32, 33};
+const int LedPin[] = {14, 26, 27, 25};
+const int ldr = 34;
 
 const int maxValue[] = {100, 255, 180, 25}; 
 int currValue[] = {25, 25, 25, 25};
 int stand[] = {3, 3, 3, 3};
 int code = 0;
 
-const int maxTimer[] = {{100, 200, 100}, 400};
+const int maxTimer1[] = {100, 200, 100};
+const int maxTimer2 = 400;
 int timer[] = {0, 0, 0, 0};
 
 const int freq = 57600;
 const int resolution = 8;
 
+Adafruit_Neopixel pixel1 = Adafruit_NeoPixel(1,14,NEO_GRB+NEO_KHZ800);
+Adafruit_Neopixel pixel2 = Adafruit_Neopixel(1,26,NEO_GRB+NEO_KHZ800);
+Adafruit_Neopixel pixel3 = Adafruit_Neopixel(1,27,NEO_GRB+NEO_KHZ800);
+Adadfruit_Neopixel pixel4 = Adafruit_Neopixel(1,25,NEO_GRB+NEO_KHZ800);
 
 void setup()
 {
@@ -54,18 +66,6 @@ void setup()
   digitalWrite(ledCode[0], LOW);
   digitalWrite(ledCode[1], LOW);
   digitalWrite(ledCode[2], LOW);
-  
-  //setup leds verschillende channels (0, 1, 2, 3)
-  ledcSetup(0, freq, resolution);
-  ledcSetup(1, freq, resolution);
-  ledcSetup(2, freq, resolution);
-  ledcSetup(3, freq, resolution);  
-   
-  //linken van de channels aan de LedPins
-  ledcAttachPin(LedPin[0], 0);
-  ledcAttachPin(LedPin[1], 1);
-  ledcAttachPin(LedPin[2], 2);
-  ledcAttachPin(LedPin[3], 3);
   
   pinMode(buttonPin, INPUT);
   
@@ -94,26 +94,16 @@ void setup()
   
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
+  pixels.begin(); 
 }
 
-//checkt of het nacht is 
-//de mode setter (button) checkt hij continue
-//als het nacht is doorloopt hij de code 
-void loop()
-{  
-  value=analogRead(ldr);
-  readButtonMode();
-
-  if(value<300){
-      keuzeCode(code);
-  }
-}
 
 //checkt of er een knop ingeduwd is 
 void readButtonMode(){
   if (digitalRead(buttonPin)==HIGH) {
     reset();
     digitalWrite(ledCode[code], LOW);
+    pixels.setPixelColor(i, pixels.Color(0,150,0));
     code += 1;
     code %= 2;
     digitalWrite(ledCode[code], HIGH);
@@ -123,9 +113,9 @@ void readButtonMode(){
 // reset achter het veranderen van modes
 //de lampen worden er ook in aangepast
 void reset(){
-  currValue[] = {25, 25, 25, 25};
-  stand[] = {3, 3, 3, 3};
-  timer[] = {0, 0, 0, 0};
+  int currValue[] = {25, 25, 25, 25};
+  int stand[] = {3, 3, 3, 3};
+  int timer[] = {0, 0, 0, 0};
   for (int i = 0; i < 4; i++) {
     ledcWrite(i, currValue[i]);
   } 
@@ -161,7 +151,7 @@ void writeLed(int i){
 void rightStandMode0(int i){
     if (stand[i] <= 2){
       timer[i] += 50;
-      if (timer[i] >= maxTimer[code][stand[i]]){
+      if (timer[i] >= maxTimer1[stand[i]]){
         timer[i] =0;
         if (stand[i] > 0){
           stand[i] -= 1;
@@ -186,8 +176,9 @@ void sensorMode0(){
         stand[i+1] = 2;
     }
   }
-  rightStandMode0(int i)
-  writeLed(int i)
+  rightStandMode0(i);
+  writeLed(i);
+  }
 }
 
 
@@ -196,7 +187,7 @@ void sensorMode0(){
 void rightStandMode1(int i){
   if (stand[i] == 2){
     timer[i] += 50;
-    if (timer[i] >= maxTimer[1]){
+    if (timer[i] >= maxTimer2){
       timer[i] = 0;
       stand[i] = 3;
     }
@@ -216,8 +207,9 @@ void sensorMode1(){
         stand[i+1] = 2;
       }
     }
-  rightStandMode1(int i)
-  writeLed(int i)
+    rightStandMode1(i);
+    writeLed(i);
+  }
 }
 
 //kijkt welke code er gevraagd wordt
@@ -227,5 +219,18 @@ void keuzeCode(int code){
       sensorMode0();
     case 1:
       sensorMode1();
+  }
+}
+
+//checkt of het nacht is 
+//de mode setter (button) checkt hij continue
+//als het nacht is doorloopt hij de code 
+void loop()
+{  
+  value = analogRead(ldr);
+  readButtonMode();
+
+  if(value<300){
+      keuzeCode(code);
   }
 }
