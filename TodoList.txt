@@ -31,12 +31,10 @@ Presentatie:
       Samen
   ! Taken verdelen voor verslag
         Inleiding
-        SDG
-        Circuit
-        Flowchart
-        Overzichtstabel deelsystemen
-        Overzichtstabel componenten
-        Conclusie
+        Wat zijn SDG's
+        Circuit & Flowchart
+        Overzichtstabel deelsystemen & componenten
+        Test en bespreking van het project + SDG
         Figurentabel en bibliographie
       Samen
   * Verslag afwerken
