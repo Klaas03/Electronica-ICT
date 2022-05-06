@@ -33,7 +33,8 @@ Presentatie:
   ! Taken verdelen voor verslag
         Inleiding
         Wat zijn SDG's
-        Circuit & Flowchart
+        Circuit (Electronics)
+        Flowchart (Code)
         Overzichtstabel deelsystemen & componenten
         Test en bespreking van het project + SDG
         Figurentabel en bibliographie
