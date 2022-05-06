@@ -103,7 +103,6 @@ void readButtonMode(){
   if (digitalRead(buttonPin)==HIGH) {
     reset();
     digitalWrite(ledCode[code], LOW);
-    pixels.setPixelColor(i, pixels.Color(0,150,0));
     code += 1;
     code %= 2;
     digitalWrite(ledCode[code], HIGH);
@@ -143,8 +142,28 @@ void resetTimer(int i){
 
 //gebruikte de verwerkte info van rightStandMode om de lampen naar de juiste sterkte te zetten, is voor beide modus gelijk
 void writeLed(int i){
-    currValue[i] = maxValue[stand[i]];
-    ledcWrite(i, currValue[i]);
+    switch (i) {
+      case 1:
+        currValue[0] = maxValue[stand[0]];
+        pixel1.setPixelColor(1, pixels.Color(0,255,0));
+        pixel1.show();
+        break;
+      case 2:
+        currValue[1] = maxValue[stand[1]];
+        pixel2.setPixelColor(1, pixels.Color(0,255,0));
+        pixel2.show();
+        break;
+      case 3:
+        currValue[2] = maxValue[stand[2]];
+        pixel3.setPixelColor(1, pixels.Color(0,255,0));
+        pixel3.show();
+        break;
+      case 4:
+        currValue[3] = maxValue[stand[3]];
+        pixel4.setPixelColor(1, pixels.Color(0,255,0));
+        pixel4.show();
+        
+    }
 }
 
 //zet juiste stand en houdt een timer bij 
