@@ -1,0 +1,30 @@
+!(vandaag doen) *(thuis afwerkbaar) **(optioneel)
+
+Hardware:
+
+  ! NeoPixel Leds implementeren
+  ! Model maken en electronica implementeren
+  
+Software:
+
+  ! Firebase structureren
+    	Arthur
+  ! Linken met Firebase
+    	Arthur
+  * Heatmap maken op basis van Firebase
+  ** Mock heatmap maken met randomized data
+
+Presentatie:
+
+  ! Spreekonderwerpen verdelen
+      Samen
+  ! Powerpoint afwerken
+      Individueel
+  ** Snelle presentatie doorloop
+      Samen
+  ! Taken verdelen voor verslag
+      Samen
+  * Verslag afwerken
+      Individueel
+  * Controle verslag
+      Samen
