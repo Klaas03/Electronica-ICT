@@ -20,6 +20,7 @@ Presentatie:
         Inleiding | Goran
         SDG | Lucas
         Ideation | Leon
+        Concept | 
         Realisation | Arthur
         Evaluation | Klaas 
           SDG
