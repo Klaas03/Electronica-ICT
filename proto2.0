@@ -9,7 +9,7 @@
 #include "addons/TokenHelper.h"
 #include "addons/RTDBHelper.h"
 
-#include <Adafruit_Neopixel.h>
+#include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
@@ -44,10 +44,10 @@ int timer[] = {0, 0, 0, 0};
 const int freq = 57600;
 const int resolution = 8;
 
-Adafruit_Neopixel pixel1 = Adafruit_NeoPixel(1,14,NEO_GRB+NEO_KHZ800);
-Adafruit_Neopixel pixel2 = Adafruit_Neopixel(1,26,NEO_GRB+NEO_KHZ800);
-Adafruit_Neopixel pixel3 = Adafruit_Neopixel(1,27,NEO_GRB+NEO_KHZ800);
-Adadfruit_Neopixel pixel4 = Adafruit_Neopixel(1,25,NEO_GRB+NEO_KHZ800);
+Adafruit_NeoPixel pixel1 = Adafruit_NeoPixel(1,14,NEO_GRB+NEO_KHZ800);
+Adafruit_NeoPixel pixel2 = Adafruit_NeoPixel(1,26,NEO_GRB+NEO_KHZ800);
+Adafruit_NeoPixel pixel3 = Adafruit_NeoPixel(1,27,NEO_GRB+NEO_KHZ800);
+Adafruit_NeoPixel pixel4 = Adafruit_NeoPixel(1,25,NEO_GRB+NEO_KHZ800);
 
 void setup()
 {
@@ -94,7 +94,10 @@ void setup()
   
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
-  pixels.begin(); 
+  pixel1.begin();
+  pixel2.begin();
+  pixel3.begin();
+  pixel4.begin();
 }
 
 
@@ -145,22 +148,22 @@ void writeLed(int i){
     switch (i) {
       case 1:
         currValue[0] = maxValue[stand[0]];
-        pixel1.setPixelColor(1, pixels.Color(0,255,0));
+        pixel1.setPixelColor(1, pixel1.Color(currValue[0],currValue[0],currValue[0]));
         pixel1.show();
         break;
       case 2:
         currValue[1] = maxValue[stand[1]];
-        pixel2.setPixelColor(1, pixels.Color(0,255,0));
+        pixel2.setPixelColor(1, pixel2.Color(currValue[1],currValue[1],currValue[1]));
         pixel2.show();
         break;
       case 3:
         currValue[2] = maxValue[stand[2]];
-        pixel3.setPixelColor(1, pixels.Color(0,255,0));
+        pixel3.setPixelColor(1, pixel3.Color(currValue[2],currValue[2],currValue[2]));
         pixel3.show();
         break;
       case 4:
         currValue[3] = maxValue[stand[3]];
-        pixel4.setPixelColor(1, pixels.Color(0,255,0));
+        pixel4.setPixelColor(1, pixel4.Color(currValue[3],currValue[3],currValue[3]));
         pixel4.show();
         
     }
@@ -246,10 +249,6 @@ void keuzeCode(int code){
 //als het nacht is doorloopt hij de code 
 void loop()
 {  
-  value = analogRead(ldr);
   readButtonMode();
-
-  if(value<300){
-      keuzeCode(code);
-  }
+  keuzeCode(code);
 }
