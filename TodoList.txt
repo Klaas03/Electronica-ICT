@@ -17,14 +17,30 @@ Software:
 Presentatie:
 
   ! Spreekonderwerpen verdelen
+        Inleiding | Goran
+        SDG | Lucas
+        Ideation | Leon
+        Realisation | Arthur
+        Evaluation | Klaas 
+          SDG
+        Slot | Goran
       Samen
   ! Powerpoint afwerken
       Individueel
   ** Snelle presentatie doorloop
       Samen
   ! Taken verdelen voor verslag
+        Inleiding
+        SDG
+        Circuit
+        Flowchart
+        Overzichtstabel deelsystemen
+        Overzichtstabel componenten
+        Conclusie
+        Figurentabel en bibliographie
       Samen
   * Verslag afwerken
       Individueel
   * Controle verslag
       Samen
+  * Projectvideo
